@@ -32,16 +32,13 @@ class WS {
         this.ws = new WebSocket(this.config.url);
         let that = this;
         this.ws.onopen = function open() {
-            console.log('open:');
             that.do_send('RG#' + deviceId);
         };
         this.ws.onmessage = function incoming(event) {
-            console.log('data:', event.data);
             if (event.data.startsWith('NF#')) {
                 try {
                     let msg = JSON.parse(event.data.substr(3));
                     if (msg) {
-                        console.log('receiving ' + msg);
                         update(msg);
                     }
                 }
